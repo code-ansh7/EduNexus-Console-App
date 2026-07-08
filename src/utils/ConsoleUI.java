@@ -1,12 +1,10 @@
 package utils;
-
 import java.util.Scanner;
+import auth.LoginManager;
 
 public class ConsoleUI {
 
     public static void showSplashScreen() {
-
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("==================================================");
         System.out.println("                  EDUNEXUS");
@@ -20,13 +18,12 @@ public class ConsoleUI {
         System.out.println();
         System.out.println("Press ENTER to continue...");
 
-        scanner.nextLine();
+        InputHelper.scanner.nextLine();
 
     }
 
     public static void showWelcomeScreen() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
+         while (true) {
             System.out.println();
             System.out.println("=================================================");
             System.out.println("               WELCOME TO EDUNEXUS");
@@ -36,12 +33,12 @@ public class ConsoleUI {
             System.out.println("0. Exit");
             System.out.println();
             System.out.print("Enter Choice : ");
-            int choice = scanner.nextInt();
+            int choice = InputHelper.scanner.nextInt();
+            InputHelper.scanner.nextLine();
             switch (choice) {
                 case 1:
                     System.out.println();
-                    System.out.println("Opening Login Screen...");
-                    System.out.println("(Login Feature Coming Soon)");
+                    LoginManager.showLoginScreen();
                     return;
 
                 case 0:
