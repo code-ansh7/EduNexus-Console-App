@@ -1,7 +1,7 @@
 package auth;
 
 import java.util.ArrayList;
-
+import services.DashboardRouter;
 import datahandler.CSVReader;
 import models.User;
 import utils.InputHelper;
@@ -29,16 +29,7 @@ public class LoginManager {
                     System.out.println("Login Successful!");
                     System.out.println("Welcome " + user.getName());
                     System.out.println();
-                    if (user.getRole().equalsIgnoreCase("student")) {
-                        System.out.println("Opening Student Dashboard...");
-                    }
-                    else if (user.getRole().equalsIgnoreCase("teacher")) {
-                        System.out.println("Opening Teacher Dashboard...");
-                    }
-                    else if (user.getRole().equalsIgnoreCase("admin")) {
-                        System.out.println("Opening Admin Dashboard...");
-                    }
-                    break;
+                    DashboardRouter.openDashboard(user);
                 }
                 else {
                     System.out.println();
