@@ -11,7 +11,7 @@ public class Main {
         ConsoleUI.showSplashScreen();
         ArrayList<User> users = CSVReader.readUsers();
         for (User user : users) {
-            System.out.println(user.getId() + " | " + user.getName() + " | " + user.getRole());
+            System.out.println(user.getId() + " | " + user.getName() + " | " + user.getRole() + " | " + user.getPassword());
         }
         ConsoleUI.showWelcomeScreen();
 
