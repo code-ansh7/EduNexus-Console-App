@@ -1,10 +1,18 @@
 package app;
+
 import utils.ConsoleUI;
 import datahandler.CSVReader;
-public class Main{
+import java.util.ArrayList;
+import models.User;
+import datahandler.CSVReader;
+
+public class Main {
     public static void main(String[] args) {
         ConsoleUI.showSplashScreen();
-        CSVReader.readUsers();
+        ArrayList<User> users = CSVReader.readUsers();
+        for (User user : users) {
+            System.out.println(user.getId() + " | " + user.getName() + " | " + user.getRole());
+        }
         ConsoleUI.showWelcomeScreen();
 
     }
