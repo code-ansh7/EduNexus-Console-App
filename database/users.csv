@@ -1,0 +1,6 @@
+id, name, role, password
+STU001, Ansh Rastogi, student, 12345
+STU002, Rahul Sharma, student, rahul123
+TEA001, Rajesh Sir, teacher, teacher123
+TEA002, Neha Ma'am, teacher, neha123
+ADM001, Principal Sir, admin, admin123
