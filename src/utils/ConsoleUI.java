@@ -24,4 +24,35 @@ public class ConsoleUI {
 
     }
 
+    public static void showWelcomeScreen() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println();
+            System.out.println("=================================================");
+            System.out.println("               WELCOME TO EDUNEXUS");
+            System.out.println("=================================================");
+            System.out.println();
+            System.out.println("1. Login");
+            System.out.println("0. Exit");
+            System.out.println();
+            System.out.print("Enter Choice : ");
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    System.out.println();
+                    System.out.println("Opening Login Screen...");
+                    System.out.println("(Login Feature Coming Soon)");
+                    return;
+
+                case 0:
+                    System.out.println();
+                    System.out.println("Thank you for using EduNexus.");
+                    System.exit(0);
+
+                default:
+                    System.out.println();
+                    System.out.println("Invalid Choice! Please try again.");
+            }
+        }
+    }
 }
