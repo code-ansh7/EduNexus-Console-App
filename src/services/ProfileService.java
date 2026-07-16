@@ -22,7 +22,7 @@ public class ProfileService {
         System.out.println("Phone    : " + user.getPhone());
 
         System.out.println();
-        System.out.println("Press ENTER to return...");
+        System.out.println("Press ENTER to Continue...");
         InputHelper.scanner.nextLine();
     }
 

@@ -1,9 +1,7 @@
 package services;
-
-import java.util.Scanner;
 import models.User;
 import utils.InputHelper;
-import services.ProfileService;
+import services.NoticeService;
 
 public class StudentDashboard {
 
@@ -38,7 +36,7 @@ public class StudentDashboard {
                     break;
 
                 case "3":
-                    System.out.println("\nNotice Feature Coming Soon...");
+                    NoticeService.showAllNotices();
                     break;
 
                 case "4":
