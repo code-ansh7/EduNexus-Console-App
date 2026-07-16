@@ -16,13 +16,14 @@ public class TeacherDashboard {
             System.out.println("Welcome, " + user.getName());
             System.out.println();
 
-            System.out.println("1. Upload Homework");
-            System.out.println("2. View My Classes");
-            System.out.println("3. Student Attendance");
-            System.out.println("4. Notice Board");
-            System.out.println("5. Timetable");
-            System.out.println("6. Student Feedback");
-            System.out.println("7. Logout");
+            System.out.println("1. My Profile");
+            System.out.println("2. Upload Homework");
+            System.out.println("3. View My Classes");
+            System.out.println("4. Student Attendance");
+            System.out.println("5. Notice Board");
+            System.out.println("6. Timetable");
+            System.out.println("7. Student Feedback");
+            System.out.println("8. Logout");
 
             System.out.println();
             System.out.print("Enter Choice : ");
@@ -31,31 +32,35 @@ public class TeacherDashboard {
             InputHelper.scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
+                    ProfileService.showProfile(user);
+                    break;
+                case 2:
                     System.out.println("Upload Homework (Coming Soon)");
                     break;
 
-                case 2:
+                case 3:
                     System.out.println("View My Classes (Coming Soon)");
                     break;
 
-                case 3:
+                case 4:
                     System.out.println("Attendance Module (Coming Soon)");
                     break;
 
-                case 4:
+                case 5:
                     System.out.println("Notice Board (Coming Soon)");
                     break;
 
-                case 5:
+                case 6:
                     System.out.println("Timetable (Coming Soon)");
                     break;
 
-                case 6:
+                case 7:
                     System.out.println("Student Feedback (Coming Soon)");
                     break;
 
-                case 7:
+                case 8:
                     System.out.println("Logging Out...");
                     return;
 

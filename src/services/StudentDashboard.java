@@ -3,6 +3,7 @@ package services;
 import java.util.Scanner;
 import models.User;
 import utils.InputHelper;
+import services.ProfileService;
 
 public class StudentDashboard {
 
@@ -29,11 +30,11 @@ public class StudentDashboard {
             switch (choice) {
 
                 case "1":
-                    System.out.println("\nProfile Feature Coming Soon...");
+                    ProfileService.showProfile(user);
                     break;
 
                 case "2":
-                    System.out.println("\nHomework Feature Coming Soon...");
+                    System.out.println("View Homework Coming Soon...");
                     break;
 
                 case "3":
