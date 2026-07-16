@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Scanner;
 import models.User;
 import utils.InputHelper;
 
@@ -9,55 +10,49 @@ public class StudentDashboard {
 
         while (true) {
 
-            System.out.println();
-            System.out.println("========================================");
-            System.out.println("         STUDENT DASHBOARD              ");
-            System.out.println("========================================");
-            System.out.println();
+            System.out.println("\n=================================");
+            System.out.println("      STUDENT DASHBOARD");
+            System.out.println("=================================");
 
-            System.out.println("Welcome, " + user.getName());
-            System.out.println();
+            System.out.println("Welcome : " + user.getName());
 
-            System.out.println("1. My Profile");
-            System.out.println("2. Homework");
-            System.out.println("3. Notice Board");
-            System.out.println("4. Timetable");
-            System.out.println("5. Attendance");
-            System.out.println("6. My Feelings");
-            System.out.println("7. Logout");
+            System.out.println("\n1. View Profile");
+            System.out.println("2. View Homework");
+            System.out.println("3. School Notices");
+            System.out.println("4. Feelings Corner");
+            System.out.println("5. Logout");
 
-            System.out.println();
-            System.out.print("Enter Choice : ");
+            System.out.print("\nEnter Choice : ");
 
-            int choice = InputHelper.scanner.nextInt();
-            InputHelper.scanner.nextLine();
+            String choice = InputHelper.scanner.nextLine();
 
             switch (choice) {
 
-                case 1:
-                    System.out.println("My Profile (Coming Soon)");
+                case "1":
+                    System.out.println("\nProfile Feature Coming Soon...");
                     break;
-                case 2:
-                    System.out.println("Homework (Coming Soon)");
+
+                case "2":
+                    System.out.println("\nHomework Feature Coming Soon...");
                     break;
-                case 3:
-                    System.out.println("Notice Board (Coming Soon)");
+
+                case "3":
+                    System.out.println("\nNotice Feature Coming Soon...");
                     break;
-                case 4:
-                    System.out.println("Timetable (Coming Soon)");
+
+                case "4":
+                    System.out.println("\nFeelings Feature Coming Soon...");
                     break;
-                case 5:
-                    System.out.println("Attendance (Coming Soon)");
-                    break;
-                case 6:
-                    System.out.println("My Feelings (Coming Soon)");
-                    break;
-                case 7:
-                    System.out.println("Logging Out...");
+
+                case "5":
                     return;
+
                 default:
-                    System.out.println("Invalid Choice.");
+                    System.out.println("\nInvalid Choice.");
             }
+
         }
+
     }
+
 }
