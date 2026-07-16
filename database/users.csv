@@ -1,6 +1,6 @@
-id, name, role, password
-STU001, Ansh Rastogi, student, 12345
-STU002, Rahul Sharma, student, rahul123
-TEA001, Rajesh Sir, teacher, teacher123
-TEA002, Neha Ma'am, teacher, neha123
-ADM001, Principal Sir, admin, admin123
+id, name, role, password, status, class, section, email, phone
+STU001, Ansh Rastogi, student, 12345, active, 12, A, ansh@edunexus.com, 9876543210
+STU002, Rahul Sharma, student, rahul123, active, 11, B, rahul@edunexus.com, 9876543211
+TEA001, Rajesh Sir, teacher, teacher123, active, -, -, rajesh@edunexus.com, 9876543220
+TEA002, Neha Ma'am, teacher, neha123, active, -, -, neha@edunexus.com, 9876543221
+ADM001, Principal Sir, admin, admin123, active, -, -, principal@edunexus.com, 9876543230

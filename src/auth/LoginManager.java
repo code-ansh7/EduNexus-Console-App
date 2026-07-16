@@ -20,27 +20,30 @@ public class LoginManager {
         System.out.print("Password : ");
         String enteredPassword = InputHelper.scanner.nextLine();
         ArrayList<User> users = CSVReader.readUsers();
-        boolean loginSuccess = false;
         for (User user : users) {
-            if (user.getId().equalsIgnoreCase(enteredId)) {
-                if (user.getPassword().equals(enteredPassword)) {
-                    loginSuccess = true;
-                    System.out.println();
-                    System.out.println("Login Successful!");
-                    System.out.println("Welcome " + user.getName());
-                    System.out.println();
-                    DashboardRouter.openDashboard(user);
-                }
-                else {
-                    System.out.println();
-                    System.out.println("Incorrect Password.");
-                    return;
-                }
+
+            if (!user.getId().equalsIgnoreCase(enteredId)) {
+                continue;
             }
-        }
-        if (!loginSuccess) {
+
+            if (!user.getStatus().equalsIgnoreCase("active")) {
+                System.out.println();
+                System.out.println("Your account is inactive.");
+                return;
+            }
+
+            if (!user.getPassword().equals(enteredPassword)) {
+                System.out.println();
+                System.out.println("Incorrect Password.");
+                return;
+            }
+
             System.out.println();
-            System.out.println("User ID not found.");
+            System.out.println("Login Successful!");
+            System.out.println("Welcome " + user.getName());
+
+            DashboardRouter.openDashboard(user);
+            return;
         }
     }
 }
