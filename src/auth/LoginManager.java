@@ -1,49 +1,64 @@
 package auth;
 
-import java.util.ArrayList;
-import services.DashboardRouter;
 import datahandler.CSVReader;
 import models.User;
+import utils.ConsoleUI;
 import utils.InputHelper;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class LoginManager {
 
-    public static void showLoginScreen() {
+    private static final String USERS_FILE = "users.csv";
 
-        System.out.println();
-        System.out.println("========================================");
-        System.out.println("                LOGIN");
-        System.out.println("========================================");
-        System.out.println();
-        System.out.print("User ID : ");
-        String enteredId = InputHelper.scanner.nextLine();
-        System.out.print("Password : ");
-        String enteredPassword = InputHelper.scanner.nextLine();
-        ArrayList<User> users = CSVReader.readUsers();
-        for (User user : users) {
+    public boolean login(Scanner scanner) {
+        InputHelper input = new InputHelper(scanner);
 
-            if (!user.getId().equalsIgnoreCase(enteredId)) {
-                continue;
-            }
+        ConsoleUI.showLoginHeader();
 
-            if (!user.getStatus().equalsIgnoreCase("active")) {
-                System.out.println();
-                System.out.println("Your account is inactive.");
-                return;
-            }
+        String username = input.readStringRequired("Enter your User ID or Email");
+        String password = input.readStringRequired("Enter your password");
 
-            if (!user.getPassword().equals(enteredPassword)) {
-                System.out.println();
-                System.out.println("Incorrect Password.");
-                return;
-            }
+        List<String[]> allUsers = CSVReader.readAll(USERS_FILE);
 
-            System.out.println();
-            System.out.println("Login Successful!");
-            System.out.println("Welcome " + user.getName());
-
-            DashboardRouter.openDashboard(user);
-            return;
+        if (allUsers.isEmpty()) {
+            ConsoleUI.printError("No users found in the system. Please contact admin.");
+            return false;
         }
+
+        User matchedUser = null;
+
+        for (String[] row : allUsers) {
+            User u = User.fromCSV(row);
+            if (u == null) continue;
+
+            boolean matchById = u.getId().equals(username);
+            boolean matchByEmail = u.getEmail().equalsIgnoreCase(username);
+
+            if (matchById || matchByEmail) {
+                if (u.getPassword().equals(password)) {
+                    if (!u.getStatus().equalsIgnoreCase("active")) {
+                        ConsoleUI.printError("Your account is inactive. Please contact admin.");
+                        return false;
+                    }
+                    matchedUser = u;
+                    break;
+                } else {
+                    ConsoleUI.printError("Incorrect password!");
+                    return false;
+                }
+            }
+        }
+
+        if (matchedUser == null) {
+            ConsoleUI.printError("User not found. Please check your ID or email.");
+            return false;
+        }
+
+        SessionManager.setCurrentUser(matchedUser);
+        ConsoleUI.printSuccess("Login successful! Welcome, " + matchedUser.getName());
+        try { Thread.sleep(1000); } catch (InterruptedException e) { }
+        return true;
     }
 }

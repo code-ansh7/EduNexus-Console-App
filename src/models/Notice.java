@@ -2,39 +2,61 @@ package models;
 
 public class Notice {
 
-    private String noticeId;
+    private String id;
     private String title;
-    private String description;
-    private String postedBy;
+    private String content;
     private String date;
+    private String authorId;
+    private String targetRole;
 
-    public Notice(String noticeId, String title, String description, String postedBy, String date) {
+    public Notice() {
+    }
 
-        this.noticeId = noticeId;
+    public Notice(String id, String title, String content, String date, String authorId, String targetRole) {
+        this.id = id;
         this.title = title;
-        this.description = description;
-        this.postedBy = postedBy;
+        this.content = content;
         this.date = date;
-
+        this.authorId = authorId;
+        this.targetRole = targetRole;
     }
 
-    public String getNoticeId() {
-        return noticeId;
+    public static Notice fromCSV(String[] data) {
+        if (data == null || data.length < 6) return null;
+        return new Notice(
+            data[0].trim(),
+            data[1].trim(),
+            data[2].trim(),
+            data[3].trim(),
+            data[4].trim(),
+            data[5].trim()
+        );
     }
 
-    public String getTitle() {
-        return title;
+    public String[] toCSV() {
+        return new String[]{id, title, content, date, authorId, targetRole};
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getPostedBy() {
-        return postedBy;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getDate() {
-        return date;
+    public String getContent() { return content; }
+    public void setContent(String content) { this.content = content; }
+
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
+
+    public String getAuthorId() { return authorId; }
+    public void setAuthorId(String authorId) { this.authorId = authorId; }
+
+    public String getTargetRole() { return targetRole; }
+    public void setTargetRole(String targetRole) { this.targetRole = targetRole; }
+
+    @Override
+    public String toString() {
+        return "📢 " + title + "\n   Date: " + date + "\n   " + content;
     }
 }

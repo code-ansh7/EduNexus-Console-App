@@ -1,4 +1,4 @@
-# EduNexus Console App
+# EduNexus Console App (In Progress...)
 
 ## overview
 EduNexus Console is a Core Java prototype of a School Management System.
@@ -12,7 +12,6 @@ Ansh Rastogi
 ## Current Version
 
 v0.1.0
-
 ## Status
 
 Planning Phase

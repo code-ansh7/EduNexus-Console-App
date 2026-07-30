@@ -1,97 +1,99 @@
 package datahandler;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import models.Notice;
-import models.User;
+import java.util.List;
 
 public class CSVReader {
 
-    public static ArrayList<User> readUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        try {
-            BufferedReader reader
-                    = new BufferedReader(new FileReader("database/users.csv"));
+    private static final String DATABASE_DIR = "database" + File.separator;
+
+    public static List<String[]> readAll(String fileName) {
+        List<String[]> data = new ArrayList<>();
+        String path = DATABASE_DIR + fileName;
+        File file = new File(path);
+
+        if (!file.exists()) {
+            return data;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
-            // Header Skip
-            reader.readLine();
-            while ((line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) {
+            boolean isHeader = true;
+            while ((line = br.readLine()) != null) {
+                if (isHeader) {
+                    isHeader = false;
                     continue;
                 }
-                String[] data = line.split(",\\s*");
-
-                String id = data[0].trim();
-                String name = data[1].trim();
-                String role = data[2].trim();
-                String password = data[3].trim();
-                String status = data[4].trim();
-                String studentClass = data[5].trim();
-                String section = data[6].trim();
-                String email = data[7].trim();
-                String phone = data[8].trim();
-
-                User user = new User(id, name, role, password, status, studentClass, section, email, phone);
-                users.add(user);
+                line = line.trim();
+                if (line.isEmpty()) continue;
+                String[] row = parseLine(line);
+                data.add(row);
             }
-            reader.close();
         } catch (IOException e) {
-            System.out.println("Unable to read users.csv");
+            System.err.println("Error reading file " + fileName + ": " + e.getMessage());
         }
-        return users;
+        return data;
     }
 
-    public static ArrayList<Notice> readNotices() {
-
-        ArrayList<Notice> notices = new ArrayList<>();
-
-        try {
-
-            BufferedReader reader
-                    = new BufferedReader(new FileReader("database/notices.csv"));
-
-            String line;
-
-            // Header Skip
-            reader.readLine();
-
-            while ((line = reader.readLine()) != null) {
-
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
-
-                String[] data = line.split(",\\s*");
-
-                if (data.length < 5) {
-                    continue;
-                }
-
-                String noticeId = data[0].trim();
-                String title = data[1].trim();
-                String description = data[2].trim();
-                String postedBy = data[3].trim();
-                String date = data[4].trim();
-
-                Notice notice = new Notice(
-                        noticeId,
-                        title,
-                        description,
-                        postedBy,
-                        date
-                );
-
-                notices.add(notice);
+    public static String[] findById(String fileName, String id) {
+        List<String[]> data = readAll(fileName);
+        for (String[] row : data) {
+            if (row.length > 0 && row[0].trim().equals(id)) {
+                return row;
             }
-
-            reader.close();
-
-        } catch (IOException e) {
-            System.out.println("Unable to read notices.csv");
         }
+        return null;
+    }
 
-        return notices;
+    public static List<String[]> findByColumn(String fileName, int columnIndex, String value) {
+        List<String[]> result = new ArrayList<>();
+        List<String[]> data = readAll(fileName);
+        for (String[] row : data) {
+            if (row.length > columnIndex && row[columnIndex].trim().equals(value)) {
+                result.add(row);
+            }
+        }
+        return result;
+    }
+
+    public static List<String[]> searchByColumn(String fileName, int columnIndex, String keyword) {
+        List<String[]> result = new ArrayList<>();
+        List<String[]> data = readAll(fileName);
+        String lowerKeyword = keyword.toLowerCase();
+        for (String[] row : data) {
+            if (row.length > columnIndex && row[columnIndex].toLowerCase().contains(lowerKeyword)) {
+                result.add(row);
+            }
+        }
+        return result;
+    }
+
+    public static boolean exists(String fileName, String id) {
+        return findById(fileName, id) != null;
+    }
+
+    private static String[] parseLine(String line) {
+        List<String> fields = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (c == '"') {
+                inQuotes = !inQuotes;
+            } else if (c == ',' && !inQuotes) {
+                fields.add(current.toString().trim());
+                current = new StringBuilder();
+            } else {
+                current.append(c);
+            }
+        }
+        fields.add(current.toString().trim());
+
+        return fields.toArray(new String[0]);
     }
 }
